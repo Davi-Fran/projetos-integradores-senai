@@ -1,5 +1,6 @@
 from model.products import Products
 from service.excel_report import Excel
+from view.inventory_view import InventoryPage
 
 def app():
     try:

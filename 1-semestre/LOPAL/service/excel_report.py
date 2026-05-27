@@ -1,8 +1,8 @@
-import pandas as pd
+from pandas import DataFrame
 import os
 
 class Excel:
-    def __init__(self, dataframe: pd.DataFrame):
+    def __init__(self, dataframe: DataFrame):
         self.dataframe = dataframe
 
     def generate_report(self, report_name='report'):

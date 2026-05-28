@@ -6,6 +6,15 @@ class Excel:
         self.dataframe = dataframe
 
     def generate_report(self, report_name='report'):
-        desktop_path = f'{os.getcwd()}/../../../'
+        try:
+            os.makedirs('reports', exist_ok=True)
 
-        self.dataframe.to_excel(f'{desktop_path}/{report_name}.xlsx', index=False)
+            self.dataframe.to_excel(f'./reports/{report_name}.xlsx', index=False)
+        except PermissionError:
+            return 'Feche o arquivo antes de tentar gerar um novo!', False
+        except ValueError:
+            return 'Tipo de arquivo inválido!', False
+        except Exception as error:
+            return f'Erro inesperado -> {error}', False
+        
+        return 'Relatório xlsx gerado em "reports" no diretório do projeto!', True

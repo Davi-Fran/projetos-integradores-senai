@@ -4,21 +4,19 @@ from view.inventory_view import InventoryPage
 from view.console_handler import ConsoleHandler
 
 def app():
-    try:
-        products = Products()
-        df = products.get_dataframe()
+    products = Products() # Lê a base de dados
+    df = products.get_dataframe() # Recebe os produtos no formato de dataframe
 
-        # Recebe os produtos no formato de dataframe e gera um relatório em .xlsx
-        """ report_excel = Excel(df)
-        report_excel.generate_report('Relatório') """
+    report_excel = Excel(df) # Recebe o dataframe
+    msg, success = report_excel.generate_report('Relatório') # Tenta gerar o relatório em xlsx
+    ConsoleHandler.show_in_terminal(msg, success) # Relata o sucesso ou falha
 
-        # Recebe o dataframe e gera um relatório em uma página web
-        """ idk = InventoryPage(df)
-        idk.generate_page() """
+    report_page = InventoryPage(df)
+    msg, success = report_page.generate_page('Página') # Tenta gerar um relatório em uma página web
+    ConsoleHandler.show_in_terminal(msg, success)
 
-        ConsoleHandler.show_on_terminal('nsei')
-    except FileNotFoundError:
-        print('Base não encontrada!')
+    if not success:
+        return
 
 if __name__ == '__main__':
     app()
